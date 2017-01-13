@@ -19,7 +19,7 @@ BOT_DATA_DIR = os.path.join(BASE_DIR, 'data')
 BOT_EXTRA_PLUGIN_DIR = os.path.join(BASE_DIR, 'plugins')
 
 BOT_LOG_FILE = os.path.join(BASE_DIR, 'errbot.log')
-BOT_LOG_LEVEL = logging.DEBUG
+BOT_LOG_LEVEL = logging.WARNING
 
 BOT_ADMINS = ('jerrykan!~jerrykan@whatsit.theintraweb.net', )
 
