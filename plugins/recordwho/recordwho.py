@@ -15,15 +15,15 @@ class Recordwho(BotPlugin):
         self._bot.conn.reactor.add_global_handler('whoreply', self.do_whoreply)
         self._bot.conn.reactor.add_global_handler('endofwho', self.do_endofwho)
 
-    def do_whoreply(self, connection, event):
-        self._who_list[event.arguments[0]].append(event.arguments)
-
-    def do_endofwho(self, connection, event):
         try:
             os.mkdir(self._bot.bot_config.RECORDWHO_DATA_DIR)
         except FileExistsError:
             pass
 
+    def do_whoreply(self, connection, event):
+        self._who_list[event.arguments[0]].append(event.arguments)
+
+    def do_endofwho(self, connection, event):
         chan = event.arguments[0]
         fname = os.path.join(self._bot.bot_config.RECORDWHO_DATA_DIR,
                              '{}_{}.json'.format(chan, int(time())))
