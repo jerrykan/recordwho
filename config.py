@@ -3,8 +3,17 @@ import os
 
 IRC_HOST = 'irc.freenode.net'
 IRC_NICK = 'lcawhobot'
-IRC_CHANS = ('#linux.conf.au', '#taslugdev')
-WHO_CHANS = ('#linux.conf.au', )
+IRC_CHANS = (
+    '#taslugdev',
+    '#linux.conf.au',
+    '#lca2017_plenary', '#lca2017_tasman_a', '#lca2017_tasman_bc',
+    '#lca2017_boardwalk', '#lca2017_wellington_1', '#lca2017_wellington_2',
+)
+WHO_CHANS = (
+    '#linux.conf.au',
+    '#lca2017_plenary', '#lca2017_tasman_a', '#lca2017_tasman_bc',
+    '#lca2017_boardwalk', '#lca2017_wellington_1', '#lca2017_wellington_2',
+)
 
 # This is a minimal configuration to get you started with the Text mode.
 # If you want to connect Errbot to chat services, checkout
