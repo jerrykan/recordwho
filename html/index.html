@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="css/nv.d3-v1.8.1.css" rel="stylesheet" type="text/css">
+    <style>
+        text {
+          font: 12px sans-serif;
+        }
+        svg {
+          display: block;
+        }
+        html, body, svg {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+            width: 100%;
+        }
+        .chart {
+          height: 500px;
+        }
+    </style>
+    <title>linux.conf.au 2017 Chat Platform Stats</title>
+</head>
+<body>
+  <h1>linux.conf.au 2017 Chat Platform Stats</h1>
+
+  <h2>#linux.org.au</h2>
+  <div class="chart">
+    <svg id="linux-conf-au"></svg>
+  </div>
+
+  <h2>#lca2017_plenary</h2>
+  <div class="chart">
+    <svg id="lca2017_plenary"></svg>
+  </div>
+
+  <h2>#lca2017_tasman_a</h2>
+  <div class="chart">
+    <svg id="lca2017_tasman_a"></svg>
+  </div>
+
+  <h2>#lca2017_tasman_bc</h2>
+  <div class="chart">
+    <svg id="lca2017_tasman_bc"></svg>
+  </div>
+
+  <h2>#lca2017_boardwalk</h2>
+  <div class="chart">
+    <svg id="lca2017_boardwalk"></svg>
+  </div>
+
+  <h2>#lca2017_wellington_1</h2>
+  <div class="chart">
+    <svg id="lca2017_wellington_1"></svg>
+  </div>
+
+  <h2>#lca2017_wellington_2</h2>
+  <div class="chart">
+    <svg id="lca2017_wellington_2"></svg>
+  </div>
+
+  <script src="js/d3-3.5.2.min.js" charset="utf-8"></script>
+  <script src="js/nv.d3-v1.8.1.min.js"></script>
+  <script>
+    var colors = d3.scale.category20();
+
+    var charts = {};
+    document.querySelectorAll('svg').forEach(function(node, index) {
+      var id = node.id;
+
+      d3.json('data/' + id + '.json', function(data) {
+        nv.addGraph(function() {
+            charts[id] = nv.models.stackedAreaChart()
+                .useInteractiveGuideline(true)
+                .x(function(d) { return d[0] })
+                .y(function(d) { return d[1] })
+                .controlLabels({stacked: "Stacked"})
+                .duration(300);
+
+            charts[id].xAxis.tickFormat(function(d) { 
+              if( typeof(d) === "number" ) {
+                return d3.time.format('%m/%d %H:%M')(new Date(d * 1000));
+              }
+              return d;
+            });
+
+            charts[id].legend.vers('furious');
+
+            d3.select('#' + id)
+                .datum(data)
+                .transition().duration(1000)
+                .call(charts[id])
+                .each('start', function() {
+                    setTimeout(function() {
+                        d3.selectAll('#linux-conf-au *').each(function() {
+                            if(this.__transition__)
+                                this.__transition__.duration = 1;
+                        })
+                    }, 0)
+                });
+
+            nv.utils.windowResize(charts[id].update);
+            return charts[id];
+        });
+      });
+    });
+  </script>
+</body>
+</html>

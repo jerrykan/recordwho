@@ -4,4 +4,5 @@ __pycache__/
 .*.swp
 
 /errbot.log
+/html/data/
 /who_data/
