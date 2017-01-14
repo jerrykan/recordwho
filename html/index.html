@@ -25,6 +25,14 @@
 <body>
   <h1>linux.conf.au 2017 Chat Platform Stats</h1>
 
+  <select id="timespan" onchange="update(event);">
+    <option value="hour" selected>Last Hour</option>
+    <option value="12hours">Last 12 Hours</option>
+    <option value="day">Last Day</option>
+    <option value="week">Last Week</option>
+    <option value="all">Complete History</option>
+  </select>
+
   <h2>#linux.org.au</h2>
   <div class="chart">
     <svg id="linux-conf-au"></svg>
@@ -68,8 +76,9 @@
     var charts = {};
     document.querySelectorAll('svg').forEach(function(node, index) {
       var id = node.id;
+      var timespan = document.querySelector('#timespan').value;
 
-      d3.json('data/' + id + '.json', function(data) {
+      d3.json('data/' + id + '_' + timespan + '.json', function(data) {
         nv.addGraph(function() {
             charts[id] = nv.models.stackedAreaChart()
                 .useInteractiveGuideline(true)
@@ -93,7 +102,7 @@
                 .call(charts[id])
                 .each('start', function() {
                     setTimeout(function() {
-                        d3.selectAll('#linux-conf-au *').each(function() {
+                        d3.selectAll('#' + id + ' *').each(function() {
                             if(this.__transition__)
                                 this.__transition__.duration = 1;
                         })
@@ -105,6 +114,20 @@
         });
       });
     });
+
+    function update(event) {
+      var timespan = event.target.value;
+      document.querySelectorAll('svg').forEach(function(node, index) {
+        var id = node.id;
+
+        d3.json('data/' + id + '_' + timespan + '.json', function(data) {
+          d3.select('#' + id)
+              .datum(data)
+              .transition().duration(1000)
+              .call(charts[id]);
+        });
+      })
+    }
   </script>
 </body>
 </html>
