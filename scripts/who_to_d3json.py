@@ -4,6 +4,7 @@ import json
 import os
 from glob import glob
 from pprint import pprint
+from time import time
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 WHO_DATA_DIR = os.path.join(BASE_DIR, 'who_data')
@@ -86,8 +87,18 @@ legend = (
     ('Slack', lambda x: x['slack']),
 )
 
+timespans = (
+    ('all', 0),
+    ('week', int(time()) - (86400 * 7)),
+    ('day', int(time()) - 86400),
+    ('12hours', int(time()) - (3600 * 12)),
+    ('hour', int(time()) - 3600),
+)
+
 for channel in CHANNELS:
     d3_data = []
+    chan = channel.replace('#', '').replace('.', '-')
+
     d3_file = '{}.json'.format(channel.replace('#', '').replace('.', '-'))
 
     for name, func in legend:
@@ -97,5 +108,11 @@ for channel in CHANNELS:
 
         d3_data.append({'key': name, 'values': data_points})
 
-    with open(os.path.join(HTML_DATA_DIR, d3_file), 'w') as fh:
-        json.dump(d3_data, fh)
+    for span, low in timespans:
+        d3_file = '{}_{}.json'.format(chan, span)
+
+        with open(os.path.join(HTML_DATA_DIR, d3_file), 'w') as fh:
+            json.dump([{
+                'key': d['key'],
+                'values': [v for v in d['values'] if v[0] >= low],
+            } for d in d3_data], fh)
