@@ -74,7 +74,7 @@
     var colors = d3.scale.category20();
 
     var charts = {};
-    document.querySelectorAll('svg').forEach(function(node, index) {
+    Array.prototype.slice.call(document.querySelectorAll('svg')).forEach(function(node, index) {
       var id = node.id;
       var timespan = document.querySelector('#timespan').value;
 
@@ -117,7 +117,7 @@
 
     function update(event) {
       var timespan = event.target.value;
-      document.querySelectorAll('svg').forEach(function(node, index) {
+      Array.prototype.slice.call(document.querySelectorAll('svg')).forEach(function(node, index) {
         var id = node.id;
 
         d3.json('data/' + id + '_' + timespan + '.json', function(data) {
