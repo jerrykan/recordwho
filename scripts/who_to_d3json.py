@@ -40,7 +40,7 @@ def parse_who_file(filename):
                 nick = nick.split('[m]')[0]
 
             if realname.startswith('@_slack_lca2017'):
-                slack_users.add(nick.lower())
+                continue
             else:
                 matrix_users.add(nick.lower())
         else:
