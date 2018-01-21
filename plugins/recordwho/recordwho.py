@@ -2,7 +2,7 @@ import json
 import os
 from time import time
 
-from errbot import BotPlugin, botcmd, arg_botcmd, webhook
+from errbot import BotPlugin
 
 class RecordWho(BotPlugin):
     """
