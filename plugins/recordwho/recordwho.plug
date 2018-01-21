@@ -1,0 +1,9 @@
+[Core]
+Name = RecordWho
+Module = recordwho
+
+[Documentation]
+Description = Regularly record the WHO details of users in a channel
+
+[Python]
+Version = 2+

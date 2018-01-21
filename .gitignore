@@ -1,5 +1,7 @@
 /data/
 /venv/
+/who_data/
 __pycache__/
 *.pyc
+.*.swp
 errbot.log

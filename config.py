@@ -1,14 +1,23 @@
 import logging
 import os
 
+### RecordWho Settings ###
+
+IRC_HOST = 'irc.freenode.net'
+IRC_NICK = 'lcawhobot'
+IRC_CHANS = (
+    '#linux.conf.au',
+)
+WHO_CHANS = (
+    '#linux.conf.au',
+)
+IRC_ADMINS = ('jerrykan!~jerrykan@whatsit.theintraweb.net', )
+
+### Errbot Configuration ###
+
+BACKEND = 'IRC'
+
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-
-# This is a minimal configuration to get you started with the Text mode.
-# If you want to connect Errbot to chat services, checkout
-# the options in the more complete config-template.py from here:
-# https://raw.githubusercontent.com/errbotio/errbot/master/errbot/config-template.py
-
-BACKEND = 'Text'  # Errbot will start in text mode (console only mode) and will answer commands from there.
 
 BOT_DATA_DIR = os.path.join(BASE_DIR, 'data')
 BOT_EXTRA_PLUGIN_DIR = os.path.join(BASE_DIR, 'plugins')
@@ -16,4 +25,15 @@ BOT_EXTRA_PLUGIN_DIR = os.path.join(BASE_DIR, 'plugins')
 BOT_LOG_FILE = os.path.join(BASE_DIR, 'errbot.log')
 BOT_LOG_LEVEL = logging.DEBUG
 
-BOT_ADMINS = ('@CHANGE_ME', )  # !! Don't leave that to "@CHANGE_ME" if you connect your errbot to a chat system !!
+BOT_ADMINS = IRC_ADMINS
+
+BOT_IDENTITY = {
+    'server': IRC_HOST,
+    'nickname': IRC_NICK,
+}
+CHATROOM_PRESENCE = IRC_CHANS
+IRC_RECONNECT_ON_KICK = 180
+
+RECORDWHO_CHANNELS = WHO_CHANS
+RECORDWHO_INTERVAL = 300
+RECORDWHO_DATA_DIR = os.path.join(BASE_DIR, 'who_data')
