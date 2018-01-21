@@ -10,11 +10,8 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 WHO_DATA_DIR = os.path.join(BASE_DIR, 'who_data')
 HTML_DATA_DIR = os.path.join(BASE_DIR, 'html', 'data')
 
-CHANNEL = '#linux.conf.au'
 CHANNELS = (
     '#linux.conf.au',
-    '#lca2017_plenary', '#lca2017_tasman_a', '#lca2017_tasman_bc',
-    '#lca2017_boardwalk', '#lca2017_wellington_1', '#lca2017_wellington_2',
 )
 BOT_NICK = 'lcawhobot'
 
