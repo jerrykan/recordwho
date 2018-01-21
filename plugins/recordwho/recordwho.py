@@ -4,16 +4,15 @@ from time import time
 
 from errbot import BotPlugin, botcmd, arg_botcmd, webhook
 
-
-class Recordwho(BotPlugin):
+class RecordWho(BotPlugin):
     """
     Regularly record the WHO details of users in a channel
     """
-    def __init__(self, bot):
-        super().__init__(bot)
+    def __init__(self, bot, *args, **kwargs):
         self._who_list = {}
-        self._bot.conn.reactor.add_global_handler('whoreply', self.do_whoreply)
-        self._bot.conn.reactor.add_global_handler('endofwho', self.do_endofwho)
+        bot.conn.reactor.add_global_handler('whoreply', self.do_whoreply)
+        bot.conn.reactor.add_global_handler('endofwho', self.do_endofwho)
+        super().__init__(bot, *args, **kwargs)
 
         try:
             os.mkdir(self._bot.bot_config.RECORDWHO_DATA_DIR)
