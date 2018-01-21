@@ -24,7 +24,7 @@ class RecordWho(BotPlugin):
 
     def do_endofwho(self, connection, event):
         chan = event.arguments[0]
-        fname = os.path.join(self._bot.bot_config.RECORDWHO_DATA_DIR,
+        fname = os.path.join(self.bot_config.RECORDWHO_DATA_DIR,
                              '{}_{}.json'.format(chan, int(time())))
 
         with open(fname, 'w') as fh:
@@ -32,10 +32,9 @@ class RecordWho(BotPlugin):
 
     def activate(self):
         super().activate()
-        self.start_poller(self._bot.bot_config.RECORDWHO_INTERVAL,
-                          self.send_msg)
+        self.start_poller(self.bot_config.RECORDWHO_INTERVAL, self.send_msg)
 
     def send_msg(self):
-        for chan in self._bot.bot_config.RECORDWHO_CHANNELS:
+        for chan in self.bot_config.RECORDWHO_CHANNELS:
             self._who_list[chan] = []
             self._bot.conn.connection.who(chan)
