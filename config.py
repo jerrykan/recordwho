@@ -5,6 +5,12 @@ import os
 
 IRC_HOST = 'irc.freenode.net'
 IRC_NICK = 'lcawhobot'
+try:
+    IRC_NICK_PASS = os.environ['ERRBOT_NICK_PASS']
+except KeyError:
+    print("Error: 'ERRBOT_NICK_PASS' env var not set")
+    os.sys.exit(1)
+
 IRC_CHANS = (
     '#linux.conf.au',
 )
@@ -30,6 +36,7 @@ BOT_ADMINS = IRC_ADMINS
 BOT_IDENTITY = {
     'server': IRC_HOST,
     'nickname': IRC_NICK,
+    'nickserv_password': IRC_NICK_PASS,
 }
 CHATROOM_PRESENCE = IRC_CHANS
 IRC_RECONNECT_ON_KICK = 180

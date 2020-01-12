@@ -11,6 +11,10 @@ Start Errbot to record the WHO data:
 
   # errbot
 
+Then send the following IRC direct message from an IRC_ADMIN account:
+
+  /msg lcawhobot !room join #linux.conf.au
+
 Generate pretty charts:
 
   # python scripts/who_to_d3json.py
