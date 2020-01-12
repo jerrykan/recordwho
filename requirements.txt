@@ -31,7 +31,7 @@ Pygments==2.2.0
 pygments-markdown-lexer==0.1.0.dev39
 pyOpenSSL==17.2.0
 pytz==2017.3
-requests==2.18.4
+requests==2.20.0
 rocket-errbot==1.2.5
 six==1.11.0
 tempora==1.10
